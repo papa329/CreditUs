@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrediNou - Konfyans ou se kapital ou!</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .slogan {
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .auth-buttons button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .signup {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .signup:hover {
+            background-color: #2980b9;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #c0392b;
+        }
+        
+        .features {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .how-it-works {
+            background-color: var(--light);
+            padding: 4rem 0;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step-number {
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .testimonials {
+            padding: 4rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--secondary);
+            opacity: 0.2;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--light);
+            margin-right: 1rem;
+            overflow: hidden;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+        
+        .modal h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        .form-submit {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .form-submit:hover {
+            background-color: #2980b9;
+        }
+        
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Dashboard styles */
+        .dashboard {
+            display: none;
+            padding: 2rem 0;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--light);
+            margin-right: 1rem;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-details h3 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .user-details p {
+            color: #7f8c8d;
+        }
+        
+        .credit-score {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .credit-score h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .score-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .dashboard-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .loan-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .loan-details {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .dashboard-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .dashboard-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .danger-button {
+            background-color: var(--danger);
+        }
+        
+        .danger-button:hover {
+            background-color: #c0392b;
+        }
+        
+        .success-button {
+            background-color: var(--success);
+        }
+        
+        .success-button:hover {
+            background-color: #219955;
+        }
+        
+        .loan-history {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .loan-history h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: var(--light);
+            font-weight: 600;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #fef9e7;
+            color: #f39c12;
+        }
+        
+        .status-approved {
+            background-color: #e8f8f5;
+            color: #27ae60;
+        }
+        
+        .status-repaid {
+            background-color: #e8f8f5;
+            color: #27ae60;
+        }
+        
+        .status-defaulted {
+            background-color: #fdedec;
+            color: #e74c3c;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                margin-top: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .credit-score {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <h1>Kredi<span>Nou</span></h1>
+            </div>
+            <p class="slogan">Konfyans ou se kapital ou!</p>
+            <nav>
+                <ul>
+                    <li><a href="#features">Fonksyonnalite</a></li>
+                    <li><a href="#how-it-works">Kouman li mache</a></li>
+                    <li><a href="#testimonials">Temwayaj</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="login" id="login-btn">Konekte</button>
+                <button class="signup" id="signup-btn">Enskri</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Jwenn kredi fasil ak KrediNou</h2>
+            <p>Nou ofri solisyon finansye ki adapte ak bezwen ou yo. Jwenn kredi rapid ak kondisyon klè san papye konplike.</p>
+            <a href="#" class="cta-button" id="hero-signup">Kòmanse kounye a</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Fonksyonnalite nou yo</h2>
+                <p>Dekouvri tout sa KrediNou ka fè pou ou</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Kreye Kont Fasil</h3>
+                    <p>Enskri sou platfòm nou an ak kèk klike. Ou ka verifye idantite ou ak dokiman ofisyèl tankou NIF, SIN, Paspò oswa Pèmi Kondwi.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Evalyasyon Kredi Entèn</h3>
+                    <p>Nou evalye kapasite ou pou remèt kredi a atravè KrediScò nou an ki baze sou istorik peman ou ak referans ou yo.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💵</div>
+                    <h3>Premye Prè a</h3>
+                    <p>Jwenn jiska 1,000 Gdes kòm premye prè a ak enterè 10% chak mwa. Peye 10% nan kapital plis enterè chak mwa.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Sekirite Done</h3>
+                    <p>Nou pwoteje tout enfòmasyon ou yo ak teknoloji chifreman dènye kri. Okenn prè san verifye idantite.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Reyabilitasyon</h3>
+                    <p>Chak fwa ou peye san reta, nou ogmante limit prè ou. Bati yon bon istorik kredi ak KrediNou.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Pwosesis Rapid</h3>
+                    <p>Jwenn desizyon an menm jou a. Lè w fin peye, ou ka aplike pou yon lòt prè imedyatman.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kouman li mache</h2>
+                <p>3 etap senp pou jwenn kredi ou a</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h3>Enskripsyon ak Verifikasyon</h3>
+                        <p>Kreye yon kont ak KrediNou epi soumet dokiman idantite ou (NIF, SIN, Paspò oswa Pèmi Kondwi). Nou pral verifye enfòmasyon ou yo anvan nou kontinye.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h3>Evalyasyon KrediScò</h3>
+                        <p>Nou pral evalye istorik remboursman ou, regilarite nan peman, ak referans ou yo pou detèmine KrediScò ou. Sa ap detèmine kantite lajan ou ka prete.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h3>Resevwa Lajan ou</h3>
+                        <p>Yon fwa aplikasyon ou apwouve, lajan an pral transfere nan kont ou. Ou ka kòmanse peye 10% nan kapital plis enterè chak mwa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Temwayaj</h2>
+                <p>Kliyan nou yo pale sou eksperyans yo</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>Mwen te bezwen lajan pou ranje kay mwen epi KrediNou te ede mwen rapidman. Pwosesis la te fasil ak kondisyon yo te klè.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Marie L.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Marie L.</h4>
+                            <p>Pòtoprens</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>Se premye fwa mwen prè kredi ak KrediNou. Mwen te kapab peye san pwoblèm epi kounye a limit mwen ogmante. Mwen rekòmande!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Jean P.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Jean P.</h4>
+                            <p>Okay</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        <p>Mwen te bezwen lajan pou biznis mwen. KrediNou te sèl moun ki te ka bay kredi rapid pou mwen. Kounye a mwen ka kontinye grandi biznis mwen.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sophie D.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sophie D.</h4>
+                            <p>Kap Ayisyen</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Prè pou kòmanse?</h2>
+                <p>Kreye kont ou jodi a epi jwenn aksè a kredi fasil ak kondisyon ki klè.</p>
+                <a href="#" class="cta-button" id="bottom-signup">Enskri Kounye a</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KrediNou</h3>
+                    <p>Konfyans ou se kapital ou! Nou ofri solisyon kredi fasil ak aksesib pou tout Ayisyen.</p>
+                    <div class="social-links">
+                        <a href="#"><i>f</i></a>
+                        <a href="#"><i>t</i></a>
+                        <a href="#"><i>in</i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Lyen Enpòtan</h3>
+                    <ul>
+                        <li><a href="#">Apropos</a></li>
+                        <li><a href="#">Fonksyonnalite</a></li>
+                        <li><a href="#">Kouman li mache</a></li>
+                        <li><a href="#">Temwayaj</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Sèvis</h3>
+                    <ul>
+                        <li><a href="#">Demande Kredi</a></li>
+                        <li><a href="#">Kondisyon</a></li>
+                        <li><a href="#">Kalkilatè Enterè</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li>info@kredinou.com</li>
+                        <li>+509 34 00 0000</li>
+                        <li>Pòtoprens, Ayiti</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 KrediNou. Tout dwa rezève.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Konekte</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Imèl oswa Nimewo Telefòn</label>
+                    <input type="text" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Modpas</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="form-submit">Konekte</button>
+                <div class="form-footer">
+                    <p>Pa gen kont? <a href="#" id="switch-to-signup">Kreye youn</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signup-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Kreye Kont</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Non Konplè</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Imèl</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-phone">Nimewo Telefòn</label>
+                    <input type="tel" id="signup-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Modpas</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-id-type">Kalite Idantite</label>
+                    <select id="signup-id-type" required>
+                        <option value="">Chwazi...</option>
+                        <option value="nif">NIF</option>
+                        <option value="sin">SIN</option>
+                        <option value="passport">Paspò</option>
+                        <option value="driver">Pèmi Kondwi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="signup-id-number">Nimewo Idantite</label>
+                    <input type="text" id="signup-id-number" required>
+                </div>
+                <button type="submit" class="form-submit">Enskri</button>
+                <div class="form-footer">
+                    <p>Deja gen kont? <a href="#" id="switch-to-login">Konekte</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard container" id="dashboard">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" id="user-avatar">
+                </div>
+                <div class="user-details">
+                    <h3 id="user-name">Jean Pierre</h3>
+                    <p id="user-email">jean@example.com</p>
+                </div>
+            </div>
+            <div class="credit-score">
+                <h4>KrediScò ou</h4>
+                <div class="score-value" id="credit-score">650</div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>Limit Prè Ou</h3>
+                <div class="loan-amount" id="loan-limit">1,000 Gdes</div>
+                <div class="loan-details">Maksimòm ou ka prete kounye a</div>
+                <button class="dashboard-button" id="request-loan">Mande Prè</button>
+            </div>
+            <div class="dashboard-card">
+                <h3>Prè Aktyèl Ou</h3>
+                <div class="loan-amount" id="current-loan">0 Gdes</div>
+                <div class="loan-details">Ou pa gen okenn prè aktyèl</div>
+                <button class="dashboard-button success-button" id="make-payment" disabled>Fè Peman</button>
+            </div>
+            <div class="dashboard-card">
+                <h3>Pwochen Peman</h3>
+                <div class="loan-amount" id="next-payment">0 Gdes</div>
+                <div class="loan-details" id="payment-date">-</div>
+                <button class="dashboard-button danger-button" id="view-schedule">Wè Orè Peman</button>
+            </div>
+        </div>
+
+        <div class="loan-history">
+            <h3>Istorik Prè</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nimewo Prè</th>
+                        <th>Dat</th>
+                        <th>Kantite</th>
+                        <th>Estati</th>
+                    </tr>
+                </thead>
+                <tbody id="loan-history-table">
+                    <!-- Will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const heroSignup = document.getElementById('hero-signup');
+        const bottomSignup = document.getElementById('bottom-signup');
+        const loginModal = document.getElementById('login-modal');
+        const signupModal = document.getElementById('signup-modal');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const switchToSignup = document.getElementById('switch-to-signup');
+        const switchToLogin = document.getElementById('switch-to-login');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const dashboard = document.getElementById('dashboard');
+        const requestLoanBtn = document.getElementById('request-loan');
+        const makePaymentBtn = document.getElementById('make-payment');
+        const viewScheduleBtn = document.getElementById('view-schedule');
+        const loanHistoryTable = document.getElementById('loan-history-table');
+
+        // Sample user data
+        let currentUser = null;
+        let loans = [];
+        let payments = [];
+
+        // Modal functionality
+        function openModal(modal) {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event Listeners
+        loginBtn.addEventListener('click', () => openModal(loginModal));
+        signupBtn.addEventListener('click', () => openModal(signupModal));
+        heroSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(signupModal);
+        });
+        bottomSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(signupModal);
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                closeModal(modal);
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                closeModal(e.target);
+            }
+        });
+
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal(loginModal);
+            openModal(signupModal);
+        });
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal(signupModal);
+            openModal(loginModal);
+        });
+
+        // Form Submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // In a real app, you would validate with server
+            if (email && password) {
+                // Mock login
+                currentUser = {
+                    name: "Jean Pierre",
+                    email: email,
+                    phone: "+509 34 00 0000",
+                    creditScore: 650,
+                    loanLimit: 1000,
+                    currentLoan: 0,
+                    nextPayment: 0,
+                    paymentDate: "-"
+                };
+                
+                // Mock loans data
+                loans = [
+                    { id: 1, date: '2023-05-15', amount: 1000, status: 'repaid' },
+                    { id: 2, date: '2023-08-20', amount: 1500, status: 'repaid' }
+                ];
+                
+                // Mock payments data
+                payments = [
+                    { loanId: 1, date: '2023-06-15', amount: 100 },
+                    { loanId: 1, date: '2023-07-15', amount: 100 },
+                    { loanId: 1, date: '2023-08-15', amount: 100 },
+                    { loanId: 1, date: '2023-09-15', amount: 100 },
+                    { loanId: 1, date: '2023-10-15', amount: 100 },
+                    { loanId: 1, date: '2023-11-15', amount: 100 },
+                    { loanId: 1, date: '2023-12-15', amount: 100 },
+                    { loanId: 1, date: '2024-01-15', amount: 100 },
+                    { loanId: 1, date: '2024-02-15', amount: 100 },
+                    { loanId: 1, date: '2024-03-15', amount: 100 },
+                    { loanId: 2, date: '2023-09-20', amount: 150 },
+                    { loanId: 2, date: '2023-10-20', amount: 150 },
+                    { loanId: 2, date: '2023-11-20', amount: 150 },
+                    { loanId: 2, date: '2023-12-20', amount: 150 },
+                    { loanId: 2, date: '2024-01-20', amount: 150 },
+                    { loanId: 2, date: '2024-02-20', amount: 150 },
+                    { loanId: 2, date: '2024-03-20', amount: 150 },
+                    { loanId: 2, date: '2024-04-20', amount: 150 },
+                    { loanId: 2, date: '2024-05-20', amount: 150 },
+                    { loanId: 2, date: '2024-06-20', amount: 150 }
+                ];
+                
+                updateDashboard();
+                closeModal(loginModal);
+                document.querySelector('header').style.display = 'none';
+                document.querySelectorAll('section, footer').forEach(el => el.style.display = 'none');
+                dashboard.style.display = 'block';
+            } else {
+                alert('Tanpri ranpli tout chan yo');
+            }
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const phone = document.getElementById('signup-phone').value;
+            const password = document.getElementById('signup-password').value;
+            const idType = document.getElementById('signup-id-type').value;
+            const idNumber = document.getElementById('signup-id-number').value;
+            
+            if (name && email && phone && password && idType && idNumber) {
+                // In a real app, you would send this to your server
+                alert('Kont ou kreye avèk siksè! Kounye a ou ka konekte.');
+                closeModal(signupModal);
+                openModal(loginModal);
+            } else {
+                alert('Tanpri ranpli tout chan yo');
+            }
+        });
+
+        // Dashboard functionality
+        function updateDashboard() {
+            if (!currentUser) return;
+            
+            document.getElementById('user-name').textContent = currentUser.name;
+            document.getElementById('user-email').textContent = currentUser.email;
+            document.getElementById('credit-score').textContent = currentUser.creditScore;
+            document.getElementById('loan-limit').textContent = currentUser.loanLimit.toLocaleString() + ' Gdes';
+            document.getElementById('current-loan').textContent = currentUser.currentLoan.toLocaleString() + ' Gdes';
+            document.getElementById('next-payment').textContent = currentUser.nextPayment.toLocaleString() + ' Gdes';
+            document.getElementById('payment-date').textContent = currentUser.paymentDate;
+            
+            // Update loan history table
+            loanHistoryTable.innerHTML = '';
+            loans.forEach(loan => {
+                const row = document.createElement('tr');
+                
+                const statusMap = {
+                    'pending': { class: 'status-pending', text: 'An Atant' },
+                    'approved': { class: 'status-approved', text: 'Apwouve' },
+                    'repaid': { class: 'status-repaid', text: 'Ranbouse' },
+                    'defaulted': { class: 'status-defaulted', text: 'Reta' }
+                };
+                
+                const status = statusMap[loan.status] || statusMap.pending;
+                
+                row.innerHTML = `
+                    <td>${loan.id}</td>
+                    <td>${loan.date}</td>
+                    <td>${loan.amount.toLocaleString()} Gdes</td>
+                    <td><span class="status ${status.class}">${status.text}</span></td>
+                `;
+                
+                loanHistoryTable.appendChild(row);
+            });
+            
+            // Enable/disable buttons based on loan status
+            makePaymentBtn.disabled = currentUser.currentLoan <= 0;
+        }
+
+        requestLoanBtn.addEventListener('click', () => {
+            if (currentUser.currentLoan > 0) {
+                alert('Ou deja gen yon prè aktif. Ou dwe fin peye li anvan ou ka fè yon lòt demann.');
+                return;
+            }
+            
+            const amount = parseInt(prompt(`Kantite lajan ou vle prete (Maksimòm ${currentUser.loanLimit} Gdes):`, currentUser.loanLimit));
+            
+            if (isNaN(amount) return;
+            
+            if (amount > currentUser.loanLimit) {
+                alert(`Kantite lajan an depase limit ou a (${currentUser.loanLimit} Gdes).`);
+                return;
+            }
+            
+            if (amount <= 0) {
+                alert('Kantite lajan an dwe pozitif.');
+                return;
+            }
+            
+            // Calculate monthly payment (10% of capital + 10% interest)
+            const monthlyPayment = Math.round(amount * 0.1 + amount * 0.1);
+            
+            // Update user data
+            currentUser.currentLoan = amount;
+            currentUser.nextPayment = monthlyPayment;
+            
+            // Calculate next payment date (1 month from now)
+            const nextPaymentDate = new Date();
+            nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
+            currentUser.paymentDate = nextPaymentDate.toLocaleDateString();
+            
+            // Add new loan to history
+            const newLoan = {
+                id: loans.length > 0 ? Math.max(...loans.map(l => l.id)) + 1 : 1,
+                date: new Date().toISOString().split('T')[0],
+                amount: amount,
+                status: 'approved'
+            };
+            
+            loans.push(newLoan);
+            
+            updateDashboard();
+            alert(`Demann prè ou an pou ${amount} Gdes te apwouve. Premye peman ou a se ${monthlyPayment} Gdes pou ${currentUser.paymentDate}.`);
+        });
+
+        makePaymentBtn.addEventListener('click', () => {
+            if (currentUser.currentLoan <= 0) {
+                alert('Ou pa gen okenn balans aktif.');
+                return;
+            }
+            
+            const amount = parseInt(prompt(`Kantite lajan ou vle peye (Minimum ${currentUser.nextPayment} Gdes):`, currentUser.nextPayment));
+            
+            if (isNaN(amount)) return;
+            
+            if (amount < currentUser.nextPayment) {
+                alert(`Ou dwe peye minimòm ${currentUser.nextPayment} Gdes.`);
+                return;
+            }
+            
+            // Record payment
+            const activeLoan = loans.find(loan => loan.status === 'approved');
+            if (activeLoan) {
+                payments.push({
+                    loanId: activeLoan.id,
+                    date: new Date().toISOString().split('T')[0],
+                    amount: amount
+                });
+                
+                // Check if loan is fully paid
+                const totalPaid = payments
+                    .filter(p => p.loanId === activeLoan.id)
+                    .reduce((sum, p) => sum + p.amount, 0);
+                
+                if (totalPaid >= activeLoan.amount * 1.10 * 10) { // 10 payments of 10% capital + 10% interest
+                    activeLoan.status = 'repaid';
+                    currentUser.currentLoan = 0;
+                    currentUser.nextPayment = 0;
+                    currentUser.paymentDate = '-';
+                    
+                    // Increase credit limit by 20% for good payment history
+                    currentUser.loanLimit = Math.round(currentUser.loanLimit * 1.2);
+                    currentUser.creditScore += 50;
+                    
+                    alert('Felisitasyon! Ou fin peye prè ou a nèt. Limit kredi ou ogmante a ' + currentUser.loanLimit + ' Gdes.');
+                } else {
+                    // Update next payment
+                    const nextPaymentDate = new Date();
+                    nextPaymentDate.setMonth(nextPaymentDate.getMonth() + 1);
+                    currentUser.paymentDate = nextPaymentDate.toLocaleDateString();
+                    
+                    alert(`Mèsi pou peman ou a. Pwochen peman ou se ${currentUser.nextPayment} Gdes pou ${currentUser.paymentDate}.`);
+                }
+                
+                updateDashboard();
+            }
+        });
+
+        viewScheduleBtn.addEventListener('click', () => {
+            if (currentUser.currentLoan <= 0) {
+                alert('Ou pa gen okenn prè aktif.');
+                return;
+            }
+            
+            const activeLoan = loans.find(loan => loan.status === 'approved');
+            if (!activeLoan) return;
+            
+            const loanPayments = payments.filter(p => p.loanId === activeLoan.id);
+            const remainingPayments = 10 - loanPayments.length;
+            
+            let schedule = `Orè Peman pou Prè #${activeLoan.id}\n\n`;
+            schedule += `Kantite: ${activeLoan.amount} Gdes\n`;
+            schedule += `Enterè: 10% chak mwa\n`;
+            schedule += `Peman chak mwa: ${currentUser.nextPayment} Gdes\n\n`;
+            schedule += `Peman ki fin fèt: ${loanPayments.length}\n`;
+            schedule += `Peman ki rete: ${remainingPayments}\n\n`;
+            
+            if (remainingPayments > 0) {
+                schedule += `Dat Peman ki ap vini:\n`;
+                
+                const lastPaymentDate = loanPayments.length > 0 ? 
+                    new Date(loanPayments[loanPayments.length - 1].date) : 
+                    new Date();
+                
+                for (let i = 1; i <= remainingPayments; i++) {
+                    const paymentDate = new Date(lastPaymentDate);
+                    paymentDate.setMonth(paymentDate.getMonth() + i);
+                    schedule += `${paymentDate.toLocaleDateString()}: ${currentUser.nextPayment} Gdes\n`;
+                }
+            } else {
+                schedule += `Ou fin peye tout peman yo.`;
+            }
+            
+            alert(schedule);
+        });
+
+        // Initialize dashboard as hidden
+        dashboard.style.display = 'none';
+    </script>
+</body>
+</html>
