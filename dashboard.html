@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Kredi</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --dark-color: #34495e;
+            --light-color: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            color: var(--light-color);
+            font-size: 12px;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-color);
+        }
+
+        .menu-item i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .logout-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            color: var(--dark-color);
+        }
+
+        .card-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-success {
+            color: var(--secondary-color);
+        }
+
+        .card-warning {
+            color: var(--warning-color);
+        }
+
+        .card-danger {
+            color: var(--danger-color);
+        }
+
+        .card-icon {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .dashboard-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            font-size: 18px;
+        }
+
+        .loan-status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .loan-status.pending {
+            background-color: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .loan-status.approved {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .loan-status.rejected {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .loan-status-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .loan-status-details h4 {
+            margin-bottom: 5px;
+        }
+
+        .loan-status-details p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .qr-code-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #ccc;
+        }
+
+        .qr-code img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-color);
+        }
+
+        .payment-method.active {
+            border-color: var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .payment-method i {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .credit-score {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--secondary-color) 0% 70%, var(--warning-color) 70% 90%, var(--danger-color) 90% 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .score-value {
+            position: relative;
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+
+        .score-label {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .score-description {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .transaction-history {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .transaction-history th, 
+        .transaction-history td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .transaction-history th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .transaction-history tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--secondary-color);
+        }
+
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-failed {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .transaction-history {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Jean Pierre</h3>
+                <p>jean.pierre@example.com</p>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="menu-item" onclick="showSection('loan-status')">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Statit Demann Prè</span>
+                </div>
+                <div class="menu-item" onclick="showSection('wallet')">
+                    <i class="fas fa-wallet"></i>
+                    <span>Wallet Kredi</span>
+                </div>
+                <div class="menu-item" onclick="showSection('withdraw')">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Retire Kob</span>
+                </div>
+                <div class="menu-item" onclick="showSection('payment')">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Peye Dèt</span>
+                </div>
+                <div class="menu-item" onclick="showSection('credit-score')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Kredi Skò</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/40" alt="User">
+                    <div>
+                        <h4>Jean Pierre</h4>
+                        <p>Byenvini tounen!</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Dekonekte
+                </button>
+            </div>
+
+            <!-- Dashboard Overview -->
+            <div id="dashboard-section">
+                <h3 class="section-title">Rekap</h3>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Balans Wallet</h4>
+                            <i class="fas fa-wallet card-icon"></i>
+                        </div>
+                        <div class="card-value card-success">25,000 HTG</div>
+                        <p>Kob ou kapab itilize</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Dèt Ou</h4>
+                            <i class="fas fa-money-bill-wave card-icon"></i>
+                        </div>
+                        <div class="card-value card-danger">15,000 HTG</div>
+                        <p>Ou dwe peye</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Kredi Skò</h4>
+                            <i class="fas fa-chart-line card-icon"></i>
+                        </div>
+                        <div class="card-value card-warning">78/100</div>
+                        <p>Bon kredi</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 class="section-title">Dènye Aktivite</h3>
+                    <table class="transaction-history">
+                        <thead>
+                            <tr>
+                                <th>Dat</th>
+                                <th>Deskripsyon</th>
+                                <th>Montan</th>
+                                <th>Statit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15 Jan 2023</td>
+                                <td>Demann prè</td>
+                                <td>50,000 HTG</td>
+                                <td><span class="status-badge status-pending">Nan analiz</span></td>
+                            </tr>
+                            <tr>
+                                <td>10 Jan 2023</td>
+                                <td>Pèyman dèt</td>
+                                <td>10,000 HTG</td>
+                                <td><span class="status-badge status-success">Konplete</span></td>
+                            </tr>
+                            <tr>
+                                <td>5 Jan 2023</td>
+                                <td>Retirè MonCash</td>
+                                <td>5,000 HTG</td>
+                                <td><span class="status-badge status-success">Konplete</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Loan Status Section -->
+            <div id="loan-status-section" class="dashboard-section hidden">
+                <h3 class="section-title">Statit Demann Prè Ou</h3>
+                
+                <div class="loan-status pending">
+                    <i class="fas fa-clock loan-status-icon"></i>
+                    <div class="loan-status-details">
+                        <h4>Demann Prè #12345</h4>
+                        <p>Montan: 50,000 HTG</p>
+                        <p>Dat: 15 Janvye 2023</p>
+                        <p>Statit: Nan analiz</p>
+                    </div>
+                </div>
+                
+                <div class="loan-status approved">
+                    <i class="fas fa-check-circle loan-status-icon"></i>
+                    <div class="loan-status-details">
+                        <h4>Demann Prè #11234</h4>
+                        <p>Montan: 30,000 HTG</p>
+                        <p>Dat: 5 Desanm 2022</p>
+                        <p>Statit: Aksepte</p>
+                    </div>
+                </div>
+
+                <div class="loan-status rejected">
+                    <i class="fas fa-times-circle loan-status-icon"></i>
+                    <div class="loan-status-details">
+                        <h4>Demann Prè #10987</h4>
+                        <p>Montan: 20,000 HTG</p>
+                        <p>Dat: 20 Novanm 2022</p>
+                        <p>Statit: Rejte</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Section -->
+            <div id="wallet-section" class="dashboard-section hidden">
+                <h3 class="section-title">Wallet Kredi Ou</h3>
+                
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Balans Disponib</h4>
+                            <i class="fas fa-coins card-icon"></i>
+                        </div>
+                        <div class="card-value card-success">25,000 HTG</div>
+                        <p>Kob ou kapab retire</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Dèt Total</h4>
+                            <i class="fas fa-file-invoice-dollar card-icon"></i>
+                        </div>
+                        <div class="card-value card-danger">15,000 HTG</div>
+                        <p>Ou dwe peye</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Limit Kredi</h4>
+                            <i class="fas fa-credit-card card-icon"></i>
+                        </div>
+                        <div class="card-value">50,000 HTG</div>
+                        <p>Maksimòm ou ka prete</p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-section">
+                    <h3 class="section-title">Dènye tranzaksyon</h3>
+                    <table class="transaction-history">
+                        <thead>
+                            <tr>
+                                <th>Dat</th>
+                                <th>Deskripsyon</th>
+                                <th>Montan</th>
+                                <th>Balans</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10 Jan 2023</td>
+                                <td>Pèyman dèt</td>
+                                <td class="card-success">+10,000 HTG</td>
+                                <td>25,000 HTG</td>
+                            </tr>
+                            <tr>
+                                <td>5 Jan 2023</td>
+                                <td>Retirè MonCash</td>
+                                <td class="card-danger">-5,000 HTG</td>
+                                <td>15,000 HTG</td>
+                            </tr>
+                            <tr>
+                                <td>3 Jan 2023</td>
+                                <td>Depo</td>
+                                <td class="card-success">+20,000 HTG</td>
+                                <td>20,000 HTG</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Withdraw Section -->
+            <div id="withdraw-section" class="dashboard-section hidden">
+                <h3 class="section-title">Retire Kob Nan Wallet Ou</h3>
+                
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Balans Disponib</h4>
+                            <i class="fas fa-wallet card-icon"></i>
+                        </div>
+                        <div class="card-value card-success">25,000 HTG</div>
+                        <p>Kob ou kapab retire</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="withdraw-amount">Montan Ou Vle Retire (HTG)</label>
+                    <input type="number" id="withdraw-amount" class="form-control" placeholder="Egzanp: 5000">
+                </div>
+                
+                <div class="payment-methods">
+                    <div class="payment-method active" onclick="selectPaymentMethod('moncash')">
+                        <i class="fas fa-mobile-alt"></i>
+                        <p>MonCash</p>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('natcash')">
+                        <i class="fas fa-money-bill-alt"></i>
+                        <p>NatCash</p>
+                    </div>
+                </div>
+                
+                <div id="moncash-details" class="form-group">
+                    <label for="moncash-number">Nimewo MonCash</label>
+                    <input type="text" id="moncash-number" class="form-control" placeholder="Egzanp: 50912345678">
+                </div>
+                
+                <div id="natcash-details" class="form-group hidden">
+                    <label for="natcash-number">Nimewo NatCash</label>
+                    <input type="text" id="natcash-number" class="form-control" placeholder="Egzanp: 50987654321">
+                </div>
+                
+                <div class="qr-code-container">
+                    <p>Oswa eskane kòd QR sa a pou retrè a</p>
+                    <div class="qr-code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Withdraw:5000HTG" alt="QR Code">
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="processWithdrawal()">
+                    <i class="fas fa-paper-plane"></i> Soumèt Demann Retrè
+                </button>
+            </div>
+
+            <!-- Payment Section -->
+            <div id="payment-section" class="dashboard-section hidden">
+                <h3 class="section-title">Peye Dèt Ou</h3>
+                
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Dèt Total</h4>
+                            <i class="fas fa-file-invoice-dollar card-icon"></i>
+                        </div>
+                        <div class="card-value card-danger">15,000 HTG</div>
+                        <p>Ou dwe peye</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="payment-amount">Montan Ou Vle Peye (HTG)</label>
+                    <input type="number" id="payment-amount" class="form-control" placeholder="Egzanp: 5000" value="15000">
+                </div>
+                
+                <div class="payment-methods">
+                    <div class="payment-method active" onclick="selectPaymentMethod('moncash-pay')">
+                        <i class="fas fa-mobile-alt"></i>
+                        <p>MonCash</p>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('natcash-pay')">
+                        <i class="fas fa-money-bill-alt"></i>
+                        <p>NatCash</p>
+                    </div>
+                </div>
+                
+                <div id="moncash-pay-details" class="form-group">
+                    <label for="moncash-pay-number">Nimewo MonCash</label>
+                    <input type="text" id="moncash-pay-number" class="form-control" placeholder="Egzanp: 50912345678">
+                </div>
+                
+                <div id="natcash-pay-details" class="form-group hidden">
+                    <label for="natcash-pay-number">Nimewo NatCash</label>
+                    <input type="text" id="natcash-pay-number" class="form-control" placeholder="Egzanp: 50987654321">
+                </div>
+                
+                <div class="qr-code-container">
+                    <p>Oswa eskane kòd QR sa a pou pèyman an</p>
+                    <div class="qr-code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Payment:15000HTG" alt="QR Code">
+                    </div>
+                </div>
+                
+                <button class="btn btn-success" onclick="processPayment()">
+                    <i class="fas fa-credit-card"></i> Fè Pèyman
+                </button>
+            </div>
+
+            <!-- Credit Score Section -->
+            <div id="credit-score-section" class="dashboard-section hidden">
+                <h3 class="section-title">Kredi Skò Ou</h3>
+                
+                <div class="credit-score">
+                    <div class="score-circle">
+                        <div class="score-value">78</div>
+                    </div>
+                    <h3 class="score-label">Bon Kredi</h3>
+                    <p class="score-description">
+                        Kredi skò ou nan kategori "Bon". Ou gen yon istwa bon nan pèyman, 
+                        men ou ka amelyore l plis toujou.
+                    </p>
+                </div>
+                
+                <div class="dashboard-section">
+                    <h4 class="section-title">Faktè ki afekte kredi skò ou</h4>
+                    <div class="dashboard-cards">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Istwa Pèyman</h4>
+                                <i class="fas fa-history card-icon"></i>
+                            </div>
+                            <div class="card-value card-success">95%</div>
+                            <p>Pèyman alè</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Balans Dèt</h4>
+                                <i class="fas fa-percentage card-icon"></i>
+                            </div>
+                            <div class="card-value card-warning">65%</div>
+                            <p>Nan limit</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Lontanite</h4>
+                                <i class="fas fa-calendar-alt card-icon"></i>
+                            </div>
+                            <div class="card-value">1.5 an</div>
+                            <p>Istwa kredi</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Konsèy Pou Amelyore Kredi Skò Ou</label>
+                    <ul style="padding-left: 20px; color: #666;">
+                        <li>Peye tout dèt ou alè</li>
+                        <li>Evite fè twòp demann prè nan yon ti tan</li>
+                        <li>Kenbe yon balans pozitif nan wallet ou</li>
+                        <li>Itilize kredi ou responsabman</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show the dashboard section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('dashboard');
+        });
+
+        // Function to show/hide sections
+        function showSection(sectionId) {
+            // Hide all sections first
+            document.getElementById('dashboard-section').classList.add('hidden');
+            document.getElementById('loan-status-section').classList.add('hidden');
+            document.getElementById('wallet-section').classList.add('hidden');
+            document.getElementById('withdraw-section').classList.add('hidden');
+            document.getElementById('payment-section').classList.add('hidden');
+            document.getElementById('credit-score-section').classList.add('hidden');
+            
+            // Show the selected section
+            document.getElementById(sectionId + '-section').classList.remove('hidden');
+            
+            // Update active menu item
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate the clicked menu item
+            document.querySelectorAll('.menu-item').forEach(item => {
+                if (item.getAttribute('onclick').includes(sectionId)) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Function to select payment method
+        function selectPaymentMethod(method) {
+            // For withdrawal
+            if (method === 'moncash') {
+                document.getElementById('moncash-details').classList.remove('hidden');
+                document.getElementById('natcash-details').classList.add('hidden');
+                document.querySelectorAll('#withdraw-section .payment-method').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector('#withdraw-section .payment-method:nth-child(1)').classList.add('active');
+            } else if (method === 'natcash') {
+                document.getElementById('moncash-details').classList.add('hidden');
+                document.getElementById('natcash-details').classList.remove('hidden');
+                document.querySelectorAll('#withdraw-section .payment-method').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector('#withdraw-section .payment-method:nth-child(2)').classList.add('active');
+            }
+            
+            // For payment
+            if (method === 'moncash-pay') {
+                document.getElementById('moncash-pay-details').classList.remove('hidden');
+                document.getElementById('natcash-pay-details').classList.add('hidden');
+                document.querySelectorAll('#payment-section .payment-method').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector('#payment-section .payment-method:nth-child(1)').classList.add('active');
+            } else if (method === 'natcash-pay') {
+                document.getElementById('moncash-pay-details').classList.add('hidden');
+                document.getElementById('natcash-pay-details').classList.remove('hidden');
+                document.querySelectorAll('#payment-section .payment-method').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector('#payment-section .payment-method:nth-child(2)').classList.add('active');
+            }
+        }
+
+        // Function to process withdrawal
+        function processWithdrawal() {
+            const amount = document.getElementById('withdraw-amount').value;
+            let phoneNumber = '';
+            
+            if (document.getElementById('moncash-details').classList.contains('hidden')) {
+                phoneNumber = document.getElementById('natcash-number').value;
+            } else {
+                phoneNumber = document.getElementById('moncash-number').value;
+            }
+            
+            if (!amount || isNaN(amount)) {
+                alert('Tanpri antre yon montan valab.');
+                return;
+            }
+            
+            if (parseInt(amount) > 25000) {
+                alert('Montan an pa ka depase balans disponib ou.');
+                return;
+            }
+            
+            if (!phoneNumber || phoneNumber.length < 8) {
+                alert('Tanpri antre yon nimewo telefòn valab.');
+                return;
+            }
+            
+            // Here you would normally send this data to your backend
+            alert(`Demann retrè pou ${amount} HTG sou nimewo ${phoneNumber} soumèt avèk siksè!`);
+            
+            // Reset form
+            document.getElementById('withdraw-amount').value = '';
+            document.getElementById('moncash-number').value = '';
+            document.getElementById('natcash-number').value = '';
+        }
+
+        // Function to process payment
+        function processPayment() {
+            const amount = document.getElementById('payment-amount').value;
+            let phoneNumber = '';
+            
+            if (document.getElementById('moncash-pay-details').classList.contains('hidden')) {
+                phoneNumber = document.getElementById('natcash-pay-number').value;
+            } else {
+                phoneNumber = document.getElementById('moncash-pay-number').value;
+            }
+            
+            if (!amount || isNaN(amount)) {
+                alert('Tanpri antre yon montan valab.');
+                return;
+            }
+            
+            if (!phoneNumber || phoneNumber.length < 8) {
+                alert('Tanpri antre yon nimewo telefòn valab.');
+                return;
+            }
+            
+            // Here you would normally send this data to your backend
+            alert(`Pèyman pou ${amount} HTG sou nimewo ${phoneNumber} soumèt avèk siksè!`);
+            
+            // Reset form
+            document.getElementById('payment-amount').value = '15000';
+            document.getElementById('moncash-pay-number').value = '';
+            document.getElementById('natcash-pay-number').value = '';
+        }
+
+        // Function to logout
+        function logout() {
+            if (confirm('Èske ou sèten ou vle dekonekte?')) {
+                // Here you would normally clear session and redirect to login
+                alert('Ou dekonekte avèk siksè.');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>
