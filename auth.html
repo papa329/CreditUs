@@ -4,432 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enskripsyon | Kredi App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
-            --danger-color: #e74c3c;
-            --dark-color: #34495e;
-            --light-color: #ecf0f1;
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --danger: #e74c3c;
+            --dark: #34495e;
+            --light: #ecf0f1;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .form-container {
-            padding: 40px;
-        }
-
-        .progress-bar {
-            display: flex;
-            margin-bottom: 30px;
-        }
-
-        .step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 30px;
-            height: 30px;
-            background-color: var(--light-color);
-            border-radius: 50%;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-            color: var(--dark-color);
-            font-weight: bold;
-        }
-
-        .step.active .step-number {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .step.completed .step-number {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .step-title {
-            font-size: 14px;
-            color: #777;
-        }
-
-        .step.active .step-title {
-            color: var(--dark-color);
-            font-weight: bold;
-        }
-
-        .form-step {
-            display: none;
-        }
-
-        .form-step.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark-color);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-        }
-
-        .btn-secondary {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #27ae60;
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-outline:hover {
-            background-color: rgba(52, 152, 219, 0.1);
-        }
-
-        .file-upload {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px;
-            border: 2px dashed #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-
-        .file-upload:hover {
-            border-color: var(--primary-color);
-        }
-
-        .file-upload i {
-            font-size: 40px;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .file-upload input {
-            display: none;
-        }
-
-        .document-preview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .document-item {
-            width: calc(33.333% - 10px);
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .document-item img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-        }
-
-        .document-name {
-            padding: 8px;
-            background-color: #f8f9fa;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        .remove-doc {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: var(--danger-color);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .verification-method {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .verification-option {
-            flex: 1;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .verification-option:hover {
-            border-color: var(--primary-color);
-        }
-
-        .verification-option.active {
-            border-color: var(--primary-color);
-            background-color: rgba(52, 152, 219, 0.1);
-        }
-
-        .verification-option i {
-            font-size: 30px;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .code-input {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .code-input input {
-            width: 50px;
-            height: 60px;
-            text-align: center;
-            font-size: 24px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .code-input input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-
-        .resend-code {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .resend-code a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .resend-code a:hover {
-            text-decoration: underline;
-        }
-
-        .face-scan-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .video-container {
-            width: 100%;
-            max-width: 400px;
-            height: 300px;
-            background-color: #eee;
-            margin-bottom: 20px;
-            position: relative;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        #video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        #canvas {
-            display: none;
-        }
-
-        .capture-btn {
-            margin-top: 20px;
-        }
-
-        .face-match-result {
-            text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .match-success {
-            background-color: rgba(46, 204, 113, 0.2);
-            color: var(--secondary-color);
-        }
-
-        .match-failure {
-            background-color: rgba(231, 76, 60, 0.2);
-            color: var(--danger-color);
-        }
-
+        
         .hidden {
             display: none;
-        }
-
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 20px;
-            }
-            
-            .document-item {
-                width: calc(50% - 8px);
-            }
-            
-            .verification-method {
-                flex-direction: column;
-            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <div class="container">
-        <div class="form-container">
-            <!-- Progress bar -->
-            <div class="progress-bar">
-                <div class="step active" data-step="1">
-                    <div class="step-number">1</div>
-                    <div class="step-title">Enfò Pèsonèl</div>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="p-6 md:p-8">
+            <!-- Progress Bar -->
+            <div class="flex mb-8">
+                <div class="flex-1 text-center relative step active" data-step="1">
+                    <div class="w-8 h-8 bg-[var(--primary)] text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold">1</div>
+                    <div class="text-sm font-medium text-[var(--dark)]">Enfò Pèsonèl</div>
+                    <div class="absolute top-4 left-1/2 w-full h-1 bg-gray-200 -z-10"></div>
                 </div>
-                <div class="step" data-step="2">
-                    <div class="step-number">2</div>
-                    <div class="step-title">Dokiman</div>
+                <div class="flex-1 text-center relative step" data-step="2">
+                    <div class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center mx-auto mb-2 font-bold">2</div>
+                    <div class="text-sm text-gray-500">Dokiman</div>
+                    <div class="absolute top-4 left-1/2 w-full h-1 bg-gray-200 -z-10"></div>
                 </div>
-                <div class="step" data-step="3">
-                    <div class="step-number">3</div>
-                    <div class="step-title">Verifikasyon</div>
+                <div class="flex-1 text-center relative step" data-step="3">
+                    <div class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center mx-auto mb-2 font-bold">3</div>
+                    <div class="text-sm text-gray-500">Verifikasyon</div>
+                    <div class="absolute top-4 left-1/2 w-full h-1 bg-gray-200 -z-10"></div>
                 </div>
-                <div class="step" data-step="4">
-                    <div class="step-number">4</div>
-                    <div class="step-title">Rekonèsans Vizaj</div>
+                <div class="flex-1 text-center relative step" data-step="4">
+                    <div class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center mx-auto mb-2 font-bold">4</div>
+                    <div class="text-sm text-gray-500">Vizaj</div>
                 </div>
             </div>
 
             <!-- Step 1: Personal Information -->
             <div class="form-step active" id="step-1">
-                <h2 style="margin-bottom: 20px;">Enfòmasyon Pèsonèl</h2>
-                <form id="personal-info-form">
-                    <div class="form-group">
-                        <label for="nom">Non</label>
-                        <input type="text" id="nom" class="form-control" required>
+                <h2 class="text-2xl font-bold text-[var(--dark)] mb-6">Enfòmasyon Pèsonèl</h2>
+                <form id="personal-info-form" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="nom" class="block text-sm font-medium text-[var(--dark)] mb-1">Non</label>
+                            <input type="text" id="nom" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label for="prenom" class="block text-sm font-medium text-[var(--dark)] mb-1">Prenon</label>
+                            <input type="text" id="prenom" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="prenom">Prenon</label>
-                        <input type="text" id="prenom" class="form-control" required>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-[var(--dark)] mb-1">Imèl</label>
+                        <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" required>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Imèl</label>
-                        <input type="email" id="email" class="form-control" required>
+                    
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-[var(--dark)] mb-1">Nimewo Telefòn (Ayiti sèlman)</label>
+                        <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" pattern="^(509)[0-9]{8}$" required>
+                        <p class="text-xs text-gray-500 mt-1">Egzanp: 50934567890</p>
                     </div>
-                    <div class="form-group">
-                        <label for="phone">Nimewo Telefòn (Ayiti sèlman)</label>
-                        <input type="tel" id="phone" class="form-control" pattern="^(509)[0-9]{8}$" required>
-                        <small style="color: #777;">Egzanp: 50934567890</small>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-[var(--dark)] mb-1">Modpas</label>
+                            <input type="password" id="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" minlength="8" required>
+                        </div>
+                        <div>
+                            <label for="confirm-password" class="block text-sm font-medium text-[var(--dark)] mb-1">Konfime Modpas</label>
+                            <input type="password" id="confirm-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Modpas</label>
-                        <input type="password" id="password" class="form-control" minlength="8" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Konfime Modpas</label>
-                        <input type="password" id="confirm-password" class="form-control" required>
-                    </div>
-                    <div style="display: flex; justify-content: flex-end; margin-top: 30px;">
-                        <button type="button" class="btn btn-primary" onclick="nextStep(2)">Kontinye</button>
+                    
+                    <div class="flex justify-end mt-6">
+                        <button type="button" class="px-6 py-3 bg-[var(--primary)] hover:bg-[#2980b9] text-white font-medium rounded-lg transition-colors" onclick="nextStep(2)">Kontinye</button>
                     </div>
                 </form>
             </div>
 
             <!-- Step 2: Document Upload -->
-            <div class="form-step" id="step-2">
-                <h2 style="margin-bottom: 20px;">Soumèt Dokiman Ou</h2>
-                <div class="file-upload" id="document-upload">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <span>Klike oswa trennen dokiman ou isit la</span>
-                    <input type="file" id="document-input" accept="image/*,.pdf" multiple>
-                </div>
-                <div class="document-preview" id="document-preview"></div>
+            <div class="form-step hidden" id="step-2">
+                <h2 class="text-2xl font-bold text-[var(--dark)] mb-6">Soumèt Dokiman Ou</h2>
                 
-                <div class="form-group">
-                    <label for="document-type">Kalite Dokiman</label>
-                    <select id="document-type" class="form-control">
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-[var(--primary)] transition-colors" id="document-upload">
+                    <i class="fas fa-cloud-upload-alt text-[var(--primary)] text-4xl mb-4"></i>
+                    <p class="mb-2">Klike oswa trennen dokiman ou isit la</p>
+                    <p class="text-sm text-gray-500">Sipo: JPG, PNG, PDF (maksimòm 5MB)</p>
+                    <input type="file" id="document-input" class="hidden" accept="image/*,.pdf" multiple>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6" id="document-preview"></div>
+                
+                <div class="mt-6">
+                    <label for="document-type" class="block text-sm font-medium text-[var(--dark)] mb-1">Kalite Dokiman</label>
+                    <select id="document-type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent">
                         <option value="paspo">Paspo</option>
                         <option value="nif">NIF</option>
                         <option value="sin">SIN</option>
@@ -437,73 +112,73 @@
                     </select>
                 </div>
                 
-                <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                    <button type="button" class="btn btn-outline" onclick="prevStep(1)">Retounen</button>
-                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">Kontinye</button>
+                <div class="flex justify-between mt-8">
+                    <button type="button" class="px-6 py-3 border border-[var(--primary)] text-[var(--primary)] hover:bg-blue-50 font-medium rounded-lg transition-colors" onclick="prevStep(1)">Retounen</button>
+                    <button type="button" class="px-6 py-3 bg-[var(--primary)] hover:bg-[#2980b9] text-white font-medium rounded-lg transition-colors" onclick="nextStep(3)">Kontinye</button>
                 </div>
             </div>
 
             <!-- Step 3: Verification -->
-            <div class="form-step" id="step-3">
-                <h2 style="margin-bottom: 20px;">Verifikasyon</h2>
-                <p style="margin-bottom: 20px;">Chwazi metòd verifikasyon ou prefere a:</p>
+            <div class="form-step hidden" id="step-3">
+                <h2 class="text-2xl font-bold text-[var(--dark)] mb-6">Verifikasyon</h2>
+                <p class="mb-6">Chwazi metòd verifikasyon ou prefere a:</p>
                 
-                <div class="verification-method">
-                    <div class="verification-option active" onclick="selectVerificationMethod('email')">
-                        <i class="fas fa-envelope"></i>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="border border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-[var(--primary)] transition-colors active-verification" onclick="selectVerificationMethod('email')">
+                        <i class="fas fa-envelope text-[var(--primary)] text-3xl mb-2"></i>
                         <p>Imèl</p>
                     </div>
-                    <div class="verification-option" onclick="selectVerificationMethod('sms')">
-                        <i class="fas fa-mobile-alt"></i>
+                    <div class="border border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-[var(--primary)] transition-colors" onclick="selectVerificationMethod('sms')">
+                        <i class="fas fa-mobile-alt text-[var(--primary)] text-3xl mb-2"></i>
                         <p>SMS</p>
                     </div>
                 </div>
                 
-                <div id="verification-code-section">
-                    <p>Nou voye yon kòd verifikasyon sou <span id="verification-method-display">imèl</span>:</p>
-                    <p id="verification-target" style="font-weight: bold;">email@example.com</p>
+                <div id="verification-code-section" class="bg-gray-50 p-6 rounded-lg">
+                    <p class="mb-2">Nou voye yon kòd verifikasyon sou <span id="verification-method-display" class="font-medium">imèl</span>:</p>
+                    <p id="verification-target" class="font-bold text-lg mb-4">email@example.com</p>
                     
-                    <div class="code-input">
-                        <input type="text" maxlength="1" oninput="moveToNext(this, 1)">
-                        <input type="text" maxlength="1" oninput="moveToNext(this, 2)">
-                        <input type="text" maxlength="1" oninput="moveToNext(this, 3)">
-                        <input type="text" maxlength="1" oninput="moveToNext(this, 4)">
-                        <input type="text" maxlength="1" oninput="moveToNext(this, 5)">
-                        <input type="text" maxlength="1" oninput="moveToNext(this, 6)">
+                    <div class="flex justify-center space-x-2 mb-4">
+                        <input type="text" maxlength="1" class="w-12 h-16 text-center text-2xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" oninput="moveToNext(this, 1)">
+                        <input type="text" maxlength="1" class="w-12 h-16 text-center text-2xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" oninput="moveToNext(this, 2)">
+                        <input type="text" maxlength="1" class="w-12 h-16 text-center text-2xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" oninput="moveToNext(this, 3)">
+                        <input type="text" maxlength="1" class="w-12 h-16 text-center text-2xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" oninput="moveToNext(this, 4)">
+                        <input type="text" maxlength="1" class="w-12 h-16 text-center text-2xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" oninput="moveToNext(this, 5)">
+                        <input type="text" maxlength="1" class="w-12 h-16 text-center text-2xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent" oninput="moveToNext(this, 6)">
                     </div>
                     
-                    <div class="resend-code">
-                        <p>Pa resevwa kòd la? <a href="#" onclick="resendCode()">Renvwaye kòd la</a></p>
+                    <div class="text-center">
+                        <p class="text-sm">Pa resevwa kòd la? <a href="#" class="text-[var(--primary)] hover:underline" onclick="resendCode()">Renvwaye kòd la</a></p>
                     </div>
                 </div>
                 
-                <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                    <button type="button" class="btn btn-outline" onclick="prevStep(2)">Retounen</button>
-                    <button type="button" class="btn btn-primary" onclick="verifyCode()">Verifye</button>
+                <div class="flex justify-between mt-8">
+                    <button type="button" class="px-6 py-3 border border-[var(--primary)] text-[var(--primary)] hover:bg-blue-50 font-medium rounded-lg transition-colors" onclick="prevStep(2)">Retounen</button>
+                    <button type="button" class="px-6 py-3 bg-[var(--primary)] hover:bg-[#2980b9] text-white font-medium rounded-lg transition-colors" onclick="verifyCode()">Verifye</button>
                 </div>
             </div>
 
             <!-- Step 4: Face Recognition -->
-            <div class="form-step" id="step-4">
-                <h2 style="margin-bottom: 20px;">Rekonèsans Vizaj</h2>
-                <p style="margin-bottom: 20px;">Tanpri pèmèt aksè nan kamera ou pou nou ka verifye idantite ou.</p>
+            <div class="form-step hidden" id="step-4">
+                <h2 class="text-2xl font-bold text-[var(--dark)] mb-6">Rekonèsans Vizaj</h2>
+                <p class="mb-6">Tanpri pèmèt aksè nan kamera ou pou nou ka verifye idantite ou.</p>
                 
-                <div class="face-scan-container">
-                    <div class="video-container">
-                        <video id="video" autoplay playsinline></video>
-                        <canvas id="canvas"></canvas>
+                <div class="flex flex-col items-center">
+                    <div class="w-full max-w-md h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+                        <video id="video" class="w-full h-full object-cover" autoplay playsinline></video>
+                        <canvas id="canvas" class="hidden"></canvas>
                     </div>
                     
-                    <button class="btn btn-primary capture-btn" onclick="captureFace()">
-                        <i class="fas fa-camera"></i> Pran Foto
+                    <button class="mt-6 px-6 py-3 bg-[var(--primary)] hover:bg-[#2980b9] text-white font-medium rounded-lg transition-colors" onclick="captureFace()">
+                        <i class="fas fa-camera mr-2"></i> Pran Foto
                     </button>
                     
-                    <div id="face-match-result" class="face-match-result hidden"></div>
+                    <div id="face-match-result" class="mt-6 p-4 rounded-lg hidden"></div>
                 </div>
                 
-                <div style="display: flex; justify-content: space-between; margin-top: 30px;">
-                    <button type="button" class="btn btn-outline" onclick="prevStep(3)">Retounen</button>
-                    <button type="button" class="btn btn-primary" id="complete-registration" disabled onclick="completeRegistration()">Konplete Enskripsyon</button>
+                <div class="flex justify-between mt-8">
+                    <button type="button" class="px-6 py-3 border border-[var(--primary)] text-[var(--primary)] hover:bg-blue-50 font-medium rounded-lg transition-colors" onclick="prevStep(3)">Retounen</button>
+                    <button type="button" class="px-6 py-3 bg-[var(--primary)] hover:bg-[#2980b9] text-white font-medium rounded-lg transition-colors" id="complete-registration" disabled onclick="completeRegistration()">Konplete Enskripsyon</button>
                 </div>
             </div>
         </div>
@@ -525,6 +200,9 @@
             console.log("Verification code:", verificationCode); // For testing
             
             // Set up document upload
+            document.getElementById('document-upload').addEventListener('click', function() {
+                document.getElementById('document-input').click();
+            });
             document.getElementById('document-input').addEventListener('change', handleFileUpload);
             
             // Update verification target display
@@ -542,15 +220,17 @@
             if (currentStep === 3 && !validateVerificationCode()) return;
             
             // Hide current step
-            document.querySelector(`#step-${currentStep}`).classList.remove('active');
-            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            document.querySelector(`#step-${currentStep}`).classList.add('hidden');
+            document.querySelector(`.step[data-step="${currentStep}"] .bg-gray-200`).classList.remove('bg-gray-200');
+            document.querySelector(`.step[data-step="${currentStep}"] .bg-gray-200`).classList.add('bg-[var(--primary)]', 'text-white');
             
             // Show next step
-            document.querySelector(`#step-${step}`).classList.add('active');
-            document.querySelector(`.step[data-step="${step}"]`).classList.add('active');
+            document.querySelector(`#step-${step}`).classList.remove('hidden');
+            document.querySelector(`.step[data-step="${step}"] .bg-gray-200`).classList.add('bg-[var(--primary)]', 'text-white');
             
             // Update progress
-            document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('completed');
+            document.querySelector(`.step[data-step="${currentStep}"] .text-gray-500`).classList.remove('text-gray-500');
+            document.querySelector(`.step[data-step="${currentStep}"] .text-gray-500`).classList.add('text-[var(--dark)]', 'font-medium');
             
             currentStep = step;
             
@@ -562,12 +242,12 @@
 
         function prevStep(step) {
             // Hide current step
-            document.querySelector(`#step-${currentStep}`).classList.remove('active');
-            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            document.querySelector(`#step-${currentStep}`).classList.add('hidden');
+            document.querySelector(`.step[data-step="${currentStep}"] .bg-[var(--primary)]`).classList.remove('bg-[var(--primary)]', 'text-white');
+            document.querySelector(`.step[data-step="${currentStep}"] .bg-[var(--primary)]`).classList.add('bg-gray-200');
             
             // Show previous step
-            document.querySelector(`#step-${step}`).classList.add('active');
-            document.querySelector(`.step[data-step="${step}"]`).classList.add('active');
+            document.querySelector(`#step-${step}`).classList.remove('hidden');
             
             currentStep = step;
             
@@ -608,26 +288,31 @@
                 
                 reader.onload = function(e) {
                     const documentItem = document.createElement('div');
-                    documentItem.className = 'document-item';
+                    documentItem.className = 'border border-gray-200 rounded-lg overflow-hidden';
                     
                     const img = document.createElement('img');
                     img.src = e.target.result;
+                    img.className = 'w-full h-32 object-cover';
                     
                     const docName = document.createElement('div');
-                    docName.className = 'document-name';
+                    docName.className = 'p-2 bg-gray-50 text-xs text-center truncate';
                     docName.textContent = file.name;
                     
                     const removeBtn = document.createElement('div');
-                    removeBtn.className = 'remove-doc';
+                    removeBtn.className = 'absolute top-1 right-1 bg-[var(--danger)] text-white w-5 h-5 rounded-full flex items-center justify-center text-xs cursor-pointer';
                     removeBtn.innerHTML = '&times;';
                     removeBtn.onclick = function() {
                         documents = documents.filter(doc => doc.name !== file.name);
                         documentItem.remove();
                     };
                     
-                    documentItem.appendChild(img);
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'relative';
+                    imgContainer.appendChild(img);
+                    imgContainer.appendChild(removeBtn);
+                    
+                    documentItem.appendChild(imgContainer);
                     documentItem.appendChild(docName);
-                    documentItem.appendChild(removeBtn);
                     preview.appendChild(documentItem);
                     
                     // Store document info
@@ -648,9 +333,9 @@
             
             // Update UI
             document.querySelectorAll('.verification-option').forEach(option => {
-                option.classList.remove('active');
+                option.classList.remove('border-[var(--primary)]', 'bg-blue-50');
             });
-            event.currentTarget.classList.add('active');
+            event.currentTarget.classList.add('border-[var(--primary)]', 'bg-blue-50');
             
             document.getElementById('verification-method-display').textContent = 
                 method === 'email' ? 'imèl' : 'nimewo telefòn';
@@ -750,11 +435,11 @@
                 
                 if (success) {
                     matchResult.textContent = "Vizaj ou matche ak dokiman ou yo!";
-                    matchResult.className = "face-match-result match-success";
+                    matchResult.className = "bg-green-100 text-green-700 p-4 rounded-lg";
                     document.getElementById('complete-registration').disabled = false;
                 } else {
                     matchResult.textContent = "Vizaj ou pa matche ak dokiman ou yo. Tanpri eseye ankò.";
-                    matchResult.className = "face-match-result match-failure";
+                    matchResult.className = "bg-red-100 text-red-700 p-4 rounded-lg";
                     document.getElementById('complete-registration').disabled = true;
                 }
                 
