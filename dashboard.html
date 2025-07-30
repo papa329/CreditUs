@@ -4,7 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Kredi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+        // auth.js - Authentication helper functions
+
+/**
+ * Check if user is authenticated (has valid token)
+ * @returns {boolean} True if authenticated, false otherwise
+ */
+export const isAuthenticated = () => {
+  const token = localStorage.getItem('authToken');
+  if (!token) return false;
+
+  try {
+    // You could add JWT verification here if needed
+    return true;
+  } catch (error) {
+    console.error('Token validation error:', error);
+    return false;
+  }
+};
+
+/**
+ * Redirect to login page if not authenticated
+ */
+export const requireAuth = () => {
+  if (!isAuthenticated()) {
+    // Clear any existing invalid token
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    
+    // Redirect to login page
+    window.location.href = '/login.html';
+  }
+};
+
+/**
+ * Get current user data from localStorage
+ * @returns {Object|null} User object or null if not found
+ */
+export const getCurrentUser = () => {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+};
+
+/**
+ * Save authentication data to localStorage
+ * @param {string} token - JWT token
+ * @param {Object} user - User data
+ */
+export const setAuthData = (token, user) => {
+  localStorage.setItem('authToken', token);
+  localStorage.setItem('user', JSON.stringify(user));
+};
+
+/**
+ * Clear authentication data from localStorage
+ */
+export const clearAuthData = () => {
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('user');
+};
+
+/**
+ * Check authentication status on page load
+ */
+export const checkAuthOnLoad = () => {
+  // List of pages that don't require authentication
+  const publicPages = ['/login.html', '/register.html', '/forgot-password.html'];
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+  // If not a public page and not authenticated, redirect to login
+  if (!publicPages.includes(`/${currentPage}`) && !isAuthenticated()) {
+    window.location.href = '/login.html';
+  }
+};
+
+// Initialize auth check when script loads
+document.addEventListener('DOMContentLoaded', () => {
+  checkAuthOnLoad();
+});
+    </script>
     <style>
         :root {
             --primary: #3498db;
