@@ -1,415 +1,479 @@
 <!DOCTYPE html>
-<html lang="ht">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KrediNou - Konfyans ou se kapital ou!</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Kredinou - Coming Soon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --danger: #e74c3c;
+        /* Base styles - Mobile First */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        /* Loading animation */
-        #loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
+        body {
+            background: #ffffff;
+            color: #1a2a6c;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
         
-        .fade-out {
-            opacity: 0;
-            pointer-events: none;
+        .container {
+            width: 92%;
+            max-width: 900px;
+            text-align: center;
+            padding: 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            margin: 1.5rem auto;
         }
         
-        /* Custom animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .logo {
+            margin-bottom: 1.5rem;
         }
         
-        .animate-fadeIn {
-            animation: fadeIn 0.6s ease-out forwards;
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #1a2a6c;
+        }
+        
+        .logo span {
+            color: #2d5bff;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            margin-bottom: 1.8rem;
+            color: #2d5bff;
+            font-weight: 500;
+        }
+        
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+        
+        .countdown-box {
+            background: linear-gradient(to bottom, #2d5bff, #1a2a6c);
+            border-radius: 10px;
+            padding: 1.2rem 0.8rem;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        
+        .countdown-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .message {
+            margin: 2rem 0;
+            line-height: 1.7;
+        }
+        
+        .message h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: #1a2a6c;
+        }
+        
+        .message p {
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: #f8faff;
+            border-radius: 10px;
+            padding: 1.2rem;
+            border: 1px solid #e0ecff;
+            text-align: center;
+        }
+        
+        .feature i {
+            font-size: 2rem;
+            color: #2d5bff;
+            margin-bottom: 0.8rem;
+        }
+        
+        .feature h3 {
+            color: #1a2a6c;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .feature p {
+            font-size: 0.9rem;
+            color: #4a4a4a;
+        }
+        
+        .notify-form {
+            margin: 2rem 0;
+            background: #f8faff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e0ecff;
+        }
+        
+        .notify-form h3 {
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            color: #1a2a6c;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        input {
+            padding: 0.9rem 1.2rem;
+            border: 1px solid #d0e1ff;
+            border-radius: 50px;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            background: white;
+        }
+        
+        button {
+            padding: 0.9rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: #2d5bff;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #1a2a6c;
+        }
+        
+        .socials {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+        
+        .socials a {
+            color: #1a2a6c;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .socials a:hover {
+            color: #2d5bff;
+            transform: translateY(-3px);
+        }
+        
+        .progress-container {
+            width: 100%;
+            background: #e0ecff;
+            border-radius: 10px;
+            margin: 2rem 0;
+            overflow: hidden;
+            height: 16px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #2d5bff, #1a2a6c);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            margin-top: 0.6rem;
+            font-size: 0.9rem;
+            color: #1a2a6c;
+            font-weight: 500;
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            color: #1a2a6c;
+            font-size: 0.85rem;
+        }
+        
+        /* Tablet styles */
+        @media (min-width: 600px) {
+            .container {
+                padding: 2rem;
+            }
+            
+            .logo h1 {
+                font-size: 3rem;
+            }
+            
+            .countdown {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+            }
+            
+            .countdown-box {
+                padding: 1.5rem 1rem;
+            }
+            
+            .countdown-value {
+                font-size: 2.5rem;
+            }
+            
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+            
+            .form-group {
+                flex-direction: row;
+            }
+            
+            input {
+                width: 70%;
+            }
+            
+            button {
+                width: 30%;
+            }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 900px) {
+            .container {
+                padding: 2.5rem;
+            }
+            
+            .logo h1 {
+                font-size: 3.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.3rem;
+            }
+            
+            .countdown-box {
+                min-width: 110px;
+                padding: 1.8rem 1.2rem;
+            }
+            
+            .countdown-value {
+                font-size: 2.8rem;
+            }
+            
+            .countdown-label {
+                font-size: 1rem;
+            }
+            
+            .message h2 {
+                font-size: 2rem;
+            }
+            
+            .message p {
+                font-size: 1.1rem;
+            }
+            
+            .features {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .feature {
+                padding: 1.5rem;
+            }
+            
+            .feature i {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800">
-    <!-- Loading Screen -->
-    <div id="loading" class="flex flex-col items-center justify-center">
-        <h1 class="text-4xl font-bold mb-4">
-            <span class="text-[var(--primary)]">Kredi</span>
-            <span class="text-[var(--accent)]">Nou</span>
-        </h1>
-        <p class="text-[var(--secondary)]">Konfyans ou se kapital ou!</p>
-    </div>
-
-    <!-- Header -->
-    <header class="bg-[var(--primary)] text-white shadow-md">
-        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between">
-            <div class="flex items-center justify-between">
-                <div class="logo">
-                    <h1 class="text-2xl font-bold">
-                        <span class="text-white">Kredi</span>
-                        <span class="text-[var(--accent)]">Nou</span>
-                    </h1>
-                </div>
-                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>KREDI<span>NOU</span></h1>
+        </div>
+        
+        <p class="tagline">Modern Loan Solutions - Coming October 1st</p>
+        
+        <div class="countdown">
+            <div class="countdown-box">
+                <div class="countdown-value" id="days">00</div>
+                <div class="countdown-label">Days</div>
             </div>
             
-            <div class="hidden md:block">
-                <p class="text-[var(--light)] italic">Konfyans ou se kapital ou!</p>
+            <div class="countdown-box">
+                <div class="countdown-value" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
             </div>
             
-            <nav id="main-nav" class="hidden md:flex items-center space-x-6">
-                <ul class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0">
-                    <li><a href="#features" class="hover:text-[var(--secondary)] transition-colors">Fonksyonnalite</a></li>
-                    <li><a href="#how-it-works" class="hover:text-[var(--secondary)] transition-colors">Kouman li mache</a></li>
-                    <li><a href="#testimonials" class="hover:text-[var(--secondary)] transition-colors">Temwayaj</a></li>
-                    <li><a href="#contact" class="hover:text-[var(--secondary)] transition-colors">Kontak</a></li>
-                    <li><a href="dashboard.html" class="hover:text-[var(--secondary)] transition-colors">Kont mwen</a></li>
-                </ul>
-            </nav>
+            <div class="countdown-box">
+                <div class="countdown-value" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
             
-            <div class="auth-buttons hidden md:flex space-x-3">
-                <a href="login.html" class="px-4 py-2 rounded-md border border-white hover:bg-white hover:text-[var(--primary)] transition-colors">Konekte</a>
-                <a href="auth.html" class="px-4 py-2 rounded-md bg-[var(--accent)] hover:bg-[#c0392b] text-white transition-colors">Enskri</a>
+            <div class="countdown-box">
+                <div class="countdown-value" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
             </div>
         </div>
         
-        <!-- Mobile menu (hidden by default) -->
-        <div id="mobile-menu" class="md:hidden hidden bg-[var(--dark)] px-4 pb-4">
-            <nav class="flex flex-col space-y-3">
-                <a href="#features" class="text-white hover:text-[var(--secondary)]">Fonksyonnalite</a>
-                <a href="#how-it-works" class="text-white hover:text-[var(--secondary)]">Kouman li mache</a>
-                <a href="#testimonials" class="text-white hover:text-[var(--secondary)]">Temwayaj</a>
-                <a href="#contact" class="text-white hover:text-[var(--secondary)]">Kontak</a>
-                <a href="dashboard.html" class="text-white hover:text-[var(--secondary)]">Kont mwen</a>
-            </nav>
-            <div class="auth-buttons mt-4 flex flex-col space-y-2">
-                <a href="login.html" class="px-4 py-2 rounded-md border border-white text-white text-center hover:bg-white hover:text-[var(--primary)] transition-colors">Konekte</a>
-                <a href="auth.html" class="px-4 py-2 rounded-md bg-[var(--accent)] hover:bg-[#c0392b] text-white text-center transition-colors">Enskri</a>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="progress-text" id="progress-text">Development Progress: 0%</div>
+        
+        <div class="message">
+            <h2>Our Website is Under Development</h2>
+            <p>We're building a next-generation loan platform that will make borrowing simpler, faster, and more transparent. Kredinou will offer personalized loan solutions with competitive rates.</p>
+            <p>Check back on <strong>October 1st</strong> when we officially launch!</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>Fast Approval</h3>
+                <p>Quick loan decisions in minutes, not days</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-percent"></i>
+                <h3>Low Rates</h3>
+                <p>Competitive interest rates tailored for you</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure</h3>
+                <p>Bank-level security for your data</p>
             </div>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-fadeIn">Jwenn kredi fasil ak KrediNou</h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto animate-fadeIn" style="animation-delay: 0.2s">Nou ofri solisyon finansye ki adapte ak bezwen ou yo. Jwenn kredi rapid ak kondisyon klè san papye konplike.</p>
-            <a href="#" class="inline-block px-8 py-3 bg-[var(--accent)] hover:bg-[#c0392b] rounded-full text-lg font-medium transition-colors shadow-lg animate-fadeIn" style="animation-delay: 0.4s" id="hero-signup">Kòmanse kounye a</a>
+        
+       <div class="notify-form">
+    <h3>Get notified when we launch</h3>
+    <form id="notify-form">
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit">Notify Me</button>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-16 bg-white" id="features">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-[var(--primary)] mb-2">Fonksyonnalite nou yo</h2>
-                <p class="text-lg text-gray-600">Dekouvri tout sa KrediNou ka fè pou ou</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature Card 1 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">📱</div>
-                    <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Kreye Kont Fasil</h3>
-                    <p class="text-gray-700">Enskri sou platfòm nou an ak kèk klike. Ou ka verifye idantite ou ak dokiman ofisyèl tankou NIF, SIN, Paspò oswa Pèmi Kondwi.</p>
-                </div>
-                
-                <!-- Feature Card 2 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">📊</div>
-                    <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Evalyasyon Kredi Entèn</h3>
-                    <p class="text-gray-700">Nou evalye kapasite ou pou remèt kredi a atravè KrediScò nou an ki baze sou istorik peman ou ak referans ou yo.</p>
-                </div>
-                
-                <!-- Feature Card 3 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">💵</div>
-                    <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Premye Prè a</h3>
-                    <p class="text-gray-700">Jwenn jiska 2,000 Gdes kòm premye prè ak enterè 10%. Epi peye 10% nan prea ou plis (kapital plis enterè) chak mwa.Oswa nan yo sel peyman nan dat ki fikse a.</p>
-                </div>
-                
-                <!-- Feature Card 4 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">🔒</div>
-                    <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Sekirite Done</h3>
-                    <p class="text-gray-700">Nou pwoteje tout enfòmasyon ou yo ak teknoloji chifreman dènye kri. Okenn prè san verifye idantite.</p>
-                </div>
-                
-                <!-- Feature Card 5 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">📈</div>
-                    <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Reyabilitasyon</h3>
-                    <p class="text-gray-700">Chak fwa ou peye san reta, nou ogmante limit prè ou. Bati yon bon istorik kredi ak KrediNou.</p>
-                </div>
-                
-                <!-- Feature Card 6 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">⏱️</div>
-                    <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Pwosesis Rapid</h3>
-                    <p class="text-gray-700">Jwenn desizyon an menm jou a. Lè w fin peye, ou ka aplike pou yon lòt prè imedyatman.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="py-16 bg-gray-50" id="how-it-works">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-[var(--primary)] mb-2">Kouman li mache</h2>
-                <p class="text-lg text-gray-600">3 etap senp pou jwenn kredi ou a</p>
-            </div>
-            
-            <div class="max-w-3xl mx-auto space-y-8">
-                <!-- Step 1 -->
-                <div class="flex items-start">
-                    <div class="flex-shrink-0 bg-[var(--secondary)] text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">1</div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Enskripsyon ak Verifikasyon</h3>
-                        <p class="text-gray-700">Kreye yon kont ak KrediNou epi soumet dokiman idantite ou (NIF, SIN, Paspò oswa Pèmi Kondwi). Nou pral verifye enfòmasyon ou yo anvan nou kontinye.</p>
-                    </div>
-                </div>
-                
-                <!-- Step 2 -->
-                <div class="flex items-start">
-                    <div class="flex-shrink-0 bg-[var(--secondary)] text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">2</div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Evalyasyon KrediScò</h3>
-                        <p class="text-gray-700">Nou pral evalye istorik remboursman ou, regilarite nan peman, ak referans ou yo pou detèmine KrediScò ou. Sa ap detèmine kantite lajan ou ka prete.</p>
-                    </div>
-                </div>
-                
-                <!-- Step 3 -->
-                <div class="flex items-start">
-                    <div class="flex-shrink-0 bg-[var(--secondary)] text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">3</div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-2 text-[var(--primary)]">Resevwa Lajan ou</h3>
-                        <p class="text-gray-700">Yon fwa aplikasyon ou apwouve, lajan an pral transfere nan kont ou. Ou ka kòmanse peye 10% nan kapital plis enterè chak mwa.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="py-16 bg-white" id="testimonials">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-[var(--primary)] mb-2">Temwayaj</h2>
-                <p class="text-lg text-gray-600">Kliyan nou yo pale sou eksperyans yo</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md">
-                    <div class="mb-4">
-                        <p class="text-gray-700 italic">"Mwen te bezwen lajan pou ranje kay mwen epi KrediNou te ede mwen rapidman. Pwosesis la te fasil ak kondisyon yo te klè."</p>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="mr-4">
-                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Marie L." class="w-12 h-12 rounded-full object-cover">
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-[var(--primary)]">Marie L.</h4>
-                            <p class="text-sm text-gray-600">Pòtoprens</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial 2 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md">
-                    <div class="mb-4">
-                        <p class="text-gray-700 italic">"Se premye fwa mwen prè kredi ak KrediNou. Mwen te kapab peye san pwoblèm epi kounye a limit mwen ogmante. Mwen rekòmande!"</p>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="mr-4">
-                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Jean P." class="w-12 h-12 rounded-full object-cover">
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-[var(--primary)]">Jean P.</h4>
-                            <p class="text-sm text-gray-600">Okay</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial 3 -->
-                <div class="bg-[var(--light)] p-6 rounded-lg shadow-md">
-                    <div class="mb-4">
-                        <p class="text-gray-700 italic">"Mwen te bezwen lajan pou biznis mwen. KrediNou te sèl moun ki te ka bay kredi rapid pou mwen. Kounye a mwen ka kontinye grandi biznis mwen."</p>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="mr-4">
-                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sophie D." class="w-12 h-12 rounded-full object-cover">
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-[var(--primary)]">Sophie D.</h4>
-                            <p class="text-sm text-gray-600">Kap Ayisyen</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-16 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-4">Prè pou kòmanse?</h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto">Kreye kont ou jodi a epi jwenn aksè a kredi fasil ak kondisyon ki klè.</p>
-            <a href="auth.html" class="inline-block px-8 py-3 bg-[var(--accent)] hover:bg-[#c0392b] rounded-full text-lg font-medium transition-colors shadow-lg" id="bottom-signup">Enskri Kounye a</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-[var(--dark)] text-white py-12" id="contact">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <!-- Column 1 -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4">KrediNou</h3>
-                    <p class="mb-4 text-gray-300">Konfyans ou se kapital ou! Nou ofri solisyon kredi fasil ak aksesib pou tout Ayisyen.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors">f</a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors">t</a>
-                        <a href="#" class="text-gray-300 hover:text-white transition-colors">in</a>
-                    </div>
-                </div>
-                
-                <!-- Column 2 -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Lyen Enpòtan</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Apropos</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Fonksyonnalite</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Kouman li mache</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Temwayaj</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Column 3 -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Sèvis</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Demande Kredi</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Kondisyon</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Kalkilatè Enterè</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Column 4 -->
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Kontak</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>info@kredinou.com</li>
-                        <li>+52 8118 847 803</li>
-                        <li>Pòtoprens, Ayiti</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 KrediNou. Tout dwa rezève.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Login Modal (hidden by default) -->
-    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-[var(--primary)]">Konekte</h2>
-                <button class="text-gray-500 hover:text-gray-700" id="close-modal">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            
-            <form id="login-form">
-                <div class="mb-4">
-                    <label for="login-email" class="block text-gray-700 mb-2">Imèl oswa Nimewo Telefòn</label>
-                    <input type="text" id="login-email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--secondary)]" required>
-                </div>
-                
-                <div class="mb-6">
-                    <label for="login-password" class="block text-gray-700 mb-2">Modpas</label>
-                    <input type="password" id="login-password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--secondary)]" required>
-                </div>
-                
-                <button type="submit" class="w-full bg-[var(--accent)] hover:bg-[#c0392b] text-white py-2 px-4 rounded-md transition-colors">Konekte</button>
-                
-                <div class="mt-4 text-center">
-                    <p class="text-gray-600">Pa gen kont? <a href="#" class="text-[var(--secondary)] hover:underline" id="switch-to-signup">Kreye youn</a></p>
-                </div>
-            </form>
+    </form>
+</div>
+<!-- 
+        <div class="socials">
+            <a href=""><i class="fab fa-facebook-f"></i></a>
+            <a href=""><i class="fab fa-twitter"></i></a>
+            <a href=""><i class="fab fa-instagram"></i></a>
+            <a href=""><i class="fab fa-linkedin-in"></i></a>
+        </div> -->
+        
+        <div class="footer">
+            <p>&copy; 2025 Kredinou. All rights reserved.</p>
         </div>
     </div>
 
     <script>
-        // Loading animation
-        window.addEventListener('load', function() {
-            const loading = document.getElementById('loading');
-            setTimeout(() => {
-                loading.classList.add('fade-out');
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                }, 500);
-            }, 1000);
-        });
-        
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Modal functionality
-        const loginModal = document.getElementById('login-modal');
-        const closeModal = document.getElementById('close-modal');
-        
-        // Show modal when login button is clicked
-        document.getElementById('login-btn')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            loginModal.classList.remove('hidden');
-        });
-        
-        // Close modal
-        closeModal.addEventListener('click', function() {
-            loginModal.classList.add('hidden');
-        });
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', function(e) {
-            if (e.target === loginModal) {
-                loginModal.classList.add('hidden');
+        // Countdown to October 1st
+        function updateCountdown() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            let targetDate = new Date(currentYear, 9, 1); // October is month 9 (0-indexed)
+            
+            // If October 1st has already passed this year, target next year
+            if (now > targetDate) {
+                targetDate = new Date(currentYear + 1, 9, 1);
             }
+            
+            const timeDifference = targetDate - now;
+            
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+            
+            // Update the countdown display
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Calculate progress (assuming development started on August 1st)
+            const developmentStart = new Date(currentYear, 7, 1); // August 1st
+            const totalDevTime = targetDate - developmentStart;
+            const elapsedDevTime = now - developmentStart;
+            let progress = Math.min(100, Math.max(0, (elapsedDevTime / totalDevTime) * 100));
+            
+            // Update progress bar
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').textContent = `Development Progress: ${Math.round(progress)}%`;
+        }
+        
+        // Initial call
+        updateCountdown();
+        
+        // Update every second
+        setInterval(updateCountdown, 1000);
+        
+        // Simple form submission feedback
+      // Handle form submission with Formspree
+document.querySelector('#notify-form').addEventListener('submit', async function(e) {
+    e.preventDefault(); // stop page reload
+
+    const emailInput = this.querySelector('input[name="email"]');
+    const email = emailInput.value.trim();
+
+    if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    try {
+        const response = await fetch("https://formspree.io/f/xgvzlddr", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
         });
+
+        if (response.ok) {
+            alert("✅ Thank you! We'll notify you when we launch.");
+            this.reset();
+        } else {
+            alert("⚠️ Something went wrong. Please try again later.");
+        }
+    } catch (error) {
+        alert("❌ Network error. Please try again.");
+    }
+});
+
     </script>
 </body>
 </html>
